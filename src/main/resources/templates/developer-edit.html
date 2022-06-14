@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Разработчик</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div th:text="${errors}" class="margin-bottom alert-danger"></div>
+    <form action="#" th:action="@{/developer/{id}(id=${id})}" th:object="${developerDto}" method="post">
+        <div class="mb-3">
+            <label for="firstName" class="form-label">Имя</label>
+            <input type="text" class="form-control" id="firstName" th:field="${developerDto.firstName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="lastName" class="form-label">Фамилия</label>
+            <input type="text" class="form-control" id="lastName" th:field="${developerDto.lastName}" required>
+        </div>
+        <div class="mb-3">
+            <label for="company" class="form-label">Компания</label>
+            <div class = "input-group">
+                <select class="form-control" id="company" th:field="${developerDto.company}">
+                    <option th:each = "company, iterator: ${companies}" th:value="${company.id}"
+                            th:text="${company.name} + ' ' + ${company.country}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="job" class="form-label">Должность</label>
+            <div class = "input-group">
+                <select class="form-control" id="job" th:field="${developerDto.job}">
+                    <option th:each = "job, iterator: ${jobs}" th:value="${job.id}"
+                            th:text="${job.name} + ' ' +${job.hourlyRate}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="project" class="form-label">Проект</label>
+            <div class = "input-group">
+                <select class="form-control" id="project" th:field="${developerDto.project}">
+                    <option th:each = "project, iterator: ${projects}" th:value="${project.id}"
+                            th:text="${project.name}"></option>
+                </select>
+            </div>
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary button-fixed">
+                <span th:if="${id == null}">Добавить</span>
+                <span th:if="${id != null}">Обновить</span>
+            </button>
+            <a class="btn btn-secondary button-fixed" th:href="@{/developer}">
+                Назад
+            </a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

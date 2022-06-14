@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{default}" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Разработчики</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div>
+        <a class="btn btn-success button-fixed"
+           th:href="@{/developer/edit/}">
+            <i class="fa-solid fa-plus"></i> Добавить
+        </a>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Компания</th>
+                <th scope="col">Должность</th>
+                <th scope="col">Проект</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="developer, iterator: ${developers}">
+                <th scope="row" th:text="${iterator.index} + 1"></th>
+                <td th:text="${developer.id}"></td>
+                <td th:text="${developer.firstName}" style="width: 60%"></td>
+                <td th:text="${developer.lastName}" style="width: 60%"></td>
+                <td th:text="${developer.companyName} + ' ' + ${developer.companyCountry}" style="width: 60%"></td>
+                <td th:text="${developer.jobName} + ' ' + ${developer.jobHourlyRate}" style="width: 60%"></td>
+                <td th:text="${developer.projectName}" style="width: 60%"></td>
+                <td style="width: 10%">
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a class="btn btn-warning button-fixed button-sm"
+                           th:href="@{/developer/edit/{id}(id=${developer.id})}">
+                            <i class="fa fa-pencil" aria-hidden="true"></i> Изменить
+                        </a>
+                        <button type="button" class="btn btn-danger button-fixed button-sm"
+                                th:attr="onclick=|confirm('Удалить запись?') && document.getElementById('remove-${developer.id}').click()|">
+                            <i class="fa fa-trash" aria-hidden="true"></i> Удалить
+                        </button>
+                    </div>
+                    <form th:action="@{/developer/delete/{id}(id=${developer.id})}" method="post">
+                        <button th:id="'remove-' + ${developer.id}" type="submit" style="display: none">
+                            Удалить
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
