@@ -7,8 +7,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-//один ко многим с Car
-//в одном СТО много автомобилей
 @Entity
 public class Project {
     @Id

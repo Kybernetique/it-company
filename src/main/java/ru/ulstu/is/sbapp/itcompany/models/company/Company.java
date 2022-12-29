@@ -7,8 +7,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-//Один-ко-многим к автомобилям
-//Один владелец может иметь несколько машин
 @Entity
 public class Company {
     @Id
